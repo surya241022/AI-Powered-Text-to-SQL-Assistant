@@ -7,10 +7,12 @@ import os
 # Load environment variables
 load_dotenv()
 
-# Initialize Groq client
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
+# Initialize Groq client lazily
+def get_client():
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise ValueError("GROQ_API_KEY is not set. Please create a .env file and set GROQ_API_KEY.")
+    return Groq(api_key=api_key)
 
 # Function to generate SQL query
 # Function to generate SQL query
@@ -42,7 +44,7 @@ def generate_sql(user_question):
     {user_question}
     """
 
-    response = client.chat.completions.create(
+    response = get_client().chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[
             {

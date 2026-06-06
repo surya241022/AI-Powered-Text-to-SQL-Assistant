@@ -29,7 +29,11 @@ if st.button("Generate Answer"):
     if question:
 
         # Generate SQL query
-        sql_query = generate_sql(question)
+        try:
+            sql_query = generate_sql(question)
+        except Exception as e:
+            st.error(f"Execution Error: {e}")
+            st.stop()
 
         # Check if question is relevant
         if sql_query == "NOT_RELEVANT":
