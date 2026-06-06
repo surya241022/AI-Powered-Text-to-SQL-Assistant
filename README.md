@@ -80,7 +80,3 @@ To protect the underlying database:
 2. **Keyword Blocking**: Any query containing destructive commands (e.g. `DROP`, `DELETE`, `UPDATE`) is immediately flagged and execution is aborted.
 3. **LLM System Prompt Constraints**: The LLM is explicitly instructed to only construct queries using columns/tables present in the active schema, rejecting irrelevant requests with a `NOT_RELEVANT` signal.
 
----
-
-## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
